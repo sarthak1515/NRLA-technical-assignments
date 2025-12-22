@@ -10,6 +10,9 @@ This Angular application displays a functional analogue clock with integrated cu
 
 - Node.js >= 20
 - Angular CLI
+- OpenWeather API Key
+  Create a free account at https://openweathermap.org
+  Generate an API key
 
 ### Setup Instructions
 
@@ -24,7 +27,7 @@ This Angular application displays a functional analogue clock with integrated cu
  npm ci
 ```
 
-3. **Update the environment file with OpenWeather key : `src/environments/environment.ts` (Temp. for local testing)**
+3. **Update the environment file with Open Weather api key : `src/environments/environment.ts` (Temp. for local testing only)**
 
 4. **Start the Angular application-(npm start)**
 
