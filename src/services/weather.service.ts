@@ -8,8 +8,17 @@ export interface WeatherData {
   icon: string;
 }
 
+interface OpenWeatherResponse {
+  main: {
+    temp: number;
+  };
+  weather: { icon: string }[];
+}
+
 @Injectable({ providedIn: 'root' })
 export class WeatherService {
+  private weather$!: Observable<WeatherData | null>;
+
   constructor(private http: HttpClient) {}
 
   /**
@@ -25,26 +34,32 @@ export class WeatherService {
     apiKey: string,
     pollingIntervalMs: number = 10 * 60 * 1000
   ): Observable<WeatherData | null> {
-    return timer(0, pollingIntervalMs).pipe(
-      switchMap(() =>
-        this.http.get<any>(`https://api.openweathermap.org/data/2.5/weather`, {
-          params: {
-            lat: lat.toString(),
-            lon: lon.toString(),
-            units: 'metric',
-            appid: apiKey,
-          },
-        })
-      ),
-      map((data) => ({
-        temp: Math.round(data.main.temp),
-        icon: data.weather?.[0]?.icon ?? '',
-      })),
-      catchError((err) => {
-        console.error('[WeatherService]', err);
-        return of(null);
-      }),
-      shareReplay(1)
-    );
+    if (!this.weather$) {
+      this.weather$ = timer(0, pollingIntervalMs).pipe(
+        switchMap(() =>
+          this.http.get<OpenWeatherResponse>(
+            `https://api.openweathermap.org/data/2.5/weather`,
+            {
+              params: {
+                lat: lat.toString(),
+                lon: lon.toString(),
+                units: 'metric',
+                appid: apiKey,
+              },
+            }
+          )
+        ),
+        map((data) => ({
+          temp: Math.round(data.main.temp),
+          icon: data.weather?.[0]?.icon ?? '',
+        })),
+        catchError((err) => {
+          console.error('[WeatherService]', err);
+          return of(null);
+        }),
+        shareReplay(1)
+      );
+    }
+    return this.weather$;
   }
 }
