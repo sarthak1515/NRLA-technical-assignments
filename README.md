@@ -1,15 +1,17 @@
-# Clock & Weather Widget
+# NRLA Technical-Assignments
 
-## Overview
+## 1- Clock & Weather Widget
+
+### Overview
 
 This Angular application displays a functional analogue clock with integrated current weather information. The clock synchronizes with the system time, and the weather is fetched from the OpenWeather API.
 
-## Prerequisites
+### Prerequisites
 
 - Node.js >= 20
 - Angular CLI
 
-## Setup Instructions
+### Setup Instructions
 
 1. **Clone the repository**
    ```bash
@@ -25,3 +27,15 @@ This Angular application displays a functional analogue clock with integrated cu
 3. **Update the environment file with OpenWeather key : `src/environments/environment.ts` (Temp. for local testing)**
 
 4. **Start the Angular application-(npm start)**
+
+### Enhancements / Future Improvements
+
+1- Enable dark mode support.
+
+2- Improve responsiveness for smaller screens.
+
+3- Add internalization (i18n) for multiple languages.
+
+4- Complete accessibility improvements.
+
+5- GitHub Actions (GHA) for CI/CD.
