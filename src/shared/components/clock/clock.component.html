@@ -1,0 +1,102 @@
+<div
+  class="flex mt-6 min-w-fit items-center justify-center overflow-auto {{
+    className
+  }}"
+>
+  <div
+    class="relative rounded-full border-4 border-gray-200"
+    [ngClass]="size === 'sm' ? 'w-64 h-64' : 'w-96 h-96'"
+  >
+    <div class="absolute inset-2.5 rounded-full border border-gray-200"></div>
+    <div class="absolute inset-5 rounded-full border border-gray-300"></div>
+    <!-- Hour ticks -->
+    @for (tick of hourTicks;track tick) {
+    <div
+      class="absolute inset-7 flex justify-center"
+      [style.transform]="'rotate(' + tick * 30 + 'deg)'"
+    >
+      <span
+        [ngClass]="
+          tick % 3 === 0 ? 'h-2 w-[2.5px] bg-black' : 'h-2.5 w-px bg-gray-500'
+        "
+      ></span>
+    </div>
+    }
+    <!-- Minute ticks -->
+    @for (tick of minuteTicks;track tick) { @if (tick % 5 !== 0) {
+    <div
+      class="absolute inset-7 flex justify-center"
+      [style.transform]="'rotate(' + tick * 6 + 'deg)'"
+    >
+      <span class="h-1 w-[0.5px] bg-gray-400"></span>
+    </div>
+    } }
+
+    <!-- Date pill -->
+    <div
+      [ngClass]="
+        size === 'sm'
+          ? 'px-1 py-1 text-xs top-14'
+          : 'px-6 py-2 text-sm top-22.5'
+      "
+      class="absolute left-1/2 -translate-x-1/2 tracking-widest font-medium rounded-lg border border-gray-300 bg-linear-to-r from-gray-100/80 via-gray-100/60 backdrop-blur-sm to-gray-100/80 shadow-sm z-10"
+    >
+      {{ dateText }}
+    </div>
+
+    @if (weather$ | async; as weather){ @if (weather?.icon && weather?.temp) {
+    <!-- Weather pill -->
+    <div
+      [ngClass]="
+        size === 'sm'
+          ? 'px-1  py-0.5 text-xs bottom-14'
+          : 'px-6 py-2 text-sm bottom-22.5'
+      "
+      class="absolute left-1/2 -translate-x-1/2 text-sm font-medium rounded-lg border border-gray-300 bg-linear-to-r from-gray-100/80 via-gray-100/60 backdrop-blur-sm to-gray-100/80 shadow-sm z-10 flex items-center gap-1"
+    >
+      <img
+        *ngIf="weather?.icon"
+        [src]="'https://openweathermap.org/img/wn/' + weather.icon + '@2x.png'"
+        alt="Weather icon"
+        class="w-5 h-5 bg-black rounded-full"
+      />
+      {{ weather?.temp }}°C
+    </div>
+    } }
+
+    <!-- Hour hand -->
+    <div
+      class="absolute left-1/2 top-1/2 w-1.5 bg-black rounded-md"
+      style="transform-origin: bottom center"
+      [style.height.px]="hourHandHeight"
+      [style.transform]="
+        'translateX(-50%) translateY(-100%) rotate(' + hoursDeg + 'deg)'
+      "
+    ></div>
+
+    <!-- Minute hand -->
+    <div
+      class="absolute left-1/2 top-1/2 w-1 h-24 bg-black rounded-md"
+      style="transform-origin: bottom center"
+      [style.height.px]="minuteHandHeight"
+      [style.transform]="
+        'translateX(-50%) translateY(-100%) rotate(' + minutesDeg + 'deg)'
+      "
+    ></div>
+
+    <!-- Second hand -->
+    <div
+      class="absolute left-1/2 top-1/2 w-0.5 h-36 bg-black rounded-md"
+      style="transform-origin: 50% 85%"
+      [style.height.px]="secondHandHeight"
+      [style.transform]="
+        'translateX(-50%) translateY(-85%) rotate(' + secondsDeg + 'deg)'
+      "
+    ></div>
+
+    <!-- Center circle -->
+    <div
+      class="absolute left-1/2 top-1/2 w-4 h-4 border-4 border-black rounded-full -translate-x-1/2 -translate-y-1/2 bg-white"
+    ></div>
+  </div>
+</div>
