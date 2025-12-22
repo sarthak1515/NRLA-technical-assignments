@@ -32,9 +32,6 @@ export class ClockComponent implements OnInit {
   minutesDeg = 0;
   secondsDeg = 0;
   defaultclockSize = 384;
-  hourHandHeight = 80;
-  minuteHandHeight = 100;
-  secondHandHeight = 120;
 
   apiKey = environment.weatherApiKey;
 
@@ -45,7 +42,6 @@ export class ClockComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.setSizes();
     this.updateDate();
     this.fetchWeather();
 
@@ -66,23 +62,6 @@ export class ClockComponent implements OnInit {
 
       updateClockHands();
     });
-  }
-
-  private setSizes() {
-    switch (this.size) {
-      case 'sm':
-        this.defaultclockSize = 256;
-        this.hourHandHeight = 60;
-        this.minuteHandHeight = 80;
-        this.secondHandHeight = 100;
-        break;
-      case 'md':
-        this.defaultclockSize = 384;
-        this.hourHandHeight = 80;
-        this.minuteHandHeight = 100;
-        this.secondHandHeight = 120;
-        break;
-    }
   }
 
   fetchWeather() {

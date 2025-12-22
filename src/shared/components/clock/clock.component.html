@@ -1,3 +1,4 @@
+<!--  TODO:  Currently missing accessibility enhancements.-->
 <div
   class="flex mt-6 min-w-fit items-center justify-center overflow-auto {{
     className
@@ -39,7 +40,7 @@
           ? 'px-1 py-1 text-xs top-14'
           : 'px-6 py-2 text-sm top-22.5'
       "
-      class="absolute left-1/2 -translate-x-1/2 tracking-widest font-medium rounded-lg border border-gray-300 bg-linear-to-r from-gray-100/80 via-gray-100/60 backdrop-blur-sm to-gray-100/80 shadow-sm z-10"
+      class="absolute left-1/2 -translate-x-1/2 tracking-widest font-medium rounded-lg border border-gray-300 bg-linear-to-r from-gray-100/80 via-gray-100/60 to-gray-100/80 shadow-sm z-10"
     >
       {{ dateText }}
     </div>
@@ -52,7 +53,7 @@
           ? 'px-1  py-0.5 text-xs bottom-14'
           : 'px-6 py-2 text-sm bottom-22.5'
       "
-      class="absolute left-1/2 -translate-x-1/2 text-sm font-medium rounded-lg border border-gray-300 bg-linear-to-r from-gray-100/80 via-gray-100/60 backdrop-blur-sm to-gray-100/80 shadow-sm z-10 flex items-center gap-1"
+      class="absolute left-1/2 -translate-x-1/2 text-sm font-medium rounded-lg border border-gray-300 bg-linear-to-r from-gray-100/80 via-gray-100/60 to-gray-100/80 shadow-sm z-10 flex items-center gap-1"
     >
       <img
         *ngIf="weather?.icon"
@@ -68,7 +69,7 @@
     <div
       class="absolute left-1/2 top-1/2 w-1.5 bg-black rounded-md"
       style="transform-origin: bottom center"
-      [style.height.px]="hourHandHeight"
+      [ngClass]="size === 'sm' ? 'h-12' : 'h-16'"
       [style.transform]="
         'translateX(-50%) translateY(-100%) rotate(' + hoursDeg + 'deg)'
       "
@@ -76,9 +77,9 @@
 
     <!-- Minute hand -->
     <div
-      class="absolute left-1/2 top-1/2 w-1 h-24 bg-black rounded-md"
+      class="absolute left-1/2 top-1/2 w-1 bg-black rounded-md"
       style="transform-origin: bottom center"
-      [style.height.px]="minuteHandHeight"
+      [ngClass]="size === 'sm' ? 'h-14' : 'h-24'"
       [style.transform]="
         'translateX(-50%) translateY(-100%) rotate(' + minutesDeg + 'deg)'
       "
@@ -86,9 +87,9 @@
 
     <!-- Second hand -->
     <div
-      class="absolute left-1/2 top-1/2 w-0.5 h-36 bg-black rounded-md"
+      class="absolute left-1/2 top-1/2 w-0.5 bg-black rounded-md"
       style="transform-origin: 50% 85%"
-      [style.height.px]="secondHandHeight"
+      [ngClass]="size === 'sm' ? 'h-22' : 'h-36'"
       [style.transform]="
         'translateX(-50%) translateY(-85%) rotate(' + secondsDeg + 'deg)'
       "
