@@ -67,8 +67,7 @@
 
     <!-- Hour hand -->
     <div
-      class="absolute left-1/2 top-1/2 w-1.5 bg-black rounded-md"
-      style="transform-origin: bottom center"
+      class="absolute left-1/2 top-1/2 w-1.5 bg-black rounded-md origin-bottom"
       [ngClass]="size === 'sm' ? 'h-12' : 'h-16'"
       [style.transform]="
         'translateX(-50%) translateY(-100%) rotate(' + hoursDeg + 'deg)'
@@ -77,8 +76,7 @@
 
     <!-- Minute hand -->
     <div
-      class="absolute left-1/2 top-1/2 w-1 bg-black rounded-md"
-      style="transform-origin: bottom center"
+      class="absolute left-1/2 top-1/2 w-1 bg-black rounded-md origin-bottom"
       [ngClass]="size === 'sm' ? 'h-14' : 'h-24'"
       [style.transform]="
         'translateX(-50%) translateY(-100%) rotate(' + minutesDeg + 'deg)'

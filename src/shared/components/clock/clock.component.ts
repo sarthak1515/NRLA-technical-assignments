@@ -56,6 +56,15 @@ export class ClockComponent implements OnInit {
         this.minutesDeg = minutes * 6;
         this.hoursDeg = hours * 30;
 
+        /**
+         * NOTE:
+         * This runs inside `requestAnimationFrame`, which means it executes
+         * ~60 times per second (once per browser repaint).
+         *
+         * For now this is intentional to keep the second hand smooth.
+         * If needed, we could optimize to trigger change detection
+         * only once per second by adding a seconds-change check.
+         */
         this.cd.detectChanges();
         requestAnimationFrame(updateClockHands);
       };
