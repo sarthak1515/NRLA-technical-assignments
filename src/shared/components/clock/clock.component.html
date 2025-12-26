@@ -1,15 +1,14 @@
 <!--  TODO:  Currently missing accessibility enhancements.-->
-<div
-  class="flex mt-6 min-w-fit items-center justify-center overflow-auto {{
-    className
-  }}"
->
+<div [ngClass]="className">
   <div
-    class="relative rounded-full border-4 border-gray-200"
-    [ngClass]="size === 'sm' ? 'w-64 h-64' : 'w-96 h-96'"
+    class="relative rounded-full border-4 border-gray-200 dark:border-white w-[256px] sm:w-80 lg:w-96 aspect-square dark:bg-black"
   >
-    <div class="absolute inset-2.5 rounded-full border border-gray-200"></div>
-    <div class="absolute inset-5 rounded-full border border-gray-300"></div>
+    <div
+      class="absolute inset-2.5 rounded-full border border-gray-200 dark:border-white"
+    ></div>
+    <div
+      class="absolute inset-5 rounded-full border border-gray-300 dark:border-white"
+    ></div>
     <!-- Hour ticks -->
     @for (tick of hourTicks;track tick) {
     <div
@@ -18,7 +17,9 @@
     >
       <span
         [ngClass]="
-          tick % 3 === 0 ? 'h-2 w-[2.5px] bg-black' : 'h-2.5 w-px bg-gray-500'
+          tick % 3 === 0
+            ? 'h-2 w-[2.5px] bg-black dark:bg-white'
+            : 'h-2.5 w-px bg-gray-500 dark:bg-white'
         "
       ></span>
     </div>
@@ -29,7 +30,7 @@
       class="absolute inset-7 flex justify-center"
       [style.transform]="'rotate(' + tick * 6 + 'deg)'"
     >
-      <span class="h-1 w-[0.5px] bg-gray-400"></span>
+      <span class="h-1 w-[0.5px] bg-gray-400 dark:bg-white/80"></span>
     </div>
     } }
 
@@ -38,12 +39,7 @@
      impacting readability of the clock. -->
     <!-- Date pill -->
     <div
-      [ngClass]="
-        size === 'sm'
-          ? 'px-1 py-1 text-xs top-14'
-          : 'px-6 py-2 text-sm top-22.5'
-      "
-      class="absolute left-1/2 -translate-x-1/2 tracking-widest font-medium rounded-lg border border-gray-300 bg-linear-to-r from-gray-100/80 via-gray-100/60 to-gray-100/80 shadow-sm z-10"
+      class="px-2 py-1 text-xs top-14 md:text-sm md:top-18 lg:top-22.5 lg:text-md absolute left-1/2 -translate-x-1/2 tracking-widest rounded-md border border-gray-300 bg-linear-to-r from-gray-100/80 via-gray-100/60 to-gray-100/80 shadow-sm z-10"
     >
       {{ dateText }}
     </div>
@@ -51,27 +47,21 @@
     @if (weather$ | async; as weather){ @if (weather?.icon && weather?.temp) {
     <!-- Weather pill -->
     <div
-      [ngClass]="
-        size === 'sm'
-          ? 'px-1  py-0.5 text-xs bottom-14'
-          : 'px-6 py-2 text-sm bottom-22.5'
-      "
-      class="absolute left-1/2 -translate-x-1/2 text-sm font-medium rounded-lg border border-gray-300 bg-linear-to-r from-gray-100/80 via-gray-100/60 to-gray-100/80 shadow-sm z-10 flex items-center gap-1"
+      class="absolute left-1/2 -translate-x-1/2 px-2 py-1 text-xs bottom-14 md:text-sm md:bottom-18 lg:bottom-22.5 lg:text-md rounded-lg border border-gray-300 bg-linear-to-r from-gray-100/80 via-gray-100/60 to-gray-100/80 shadow-sm z-10 flex items-center gap-1"
     >
       <img
-        *ngIf="weather?.icon"
+        *ngIf="weather.icon"
         [src]="'https://openweathermap.org/img/wn/' + weather.icon + '@2x.png'"
         alt="Weather icon"
-        class="w-6 h-6"
+        class="w-5 h-5 bg-gray-500 rounded-full"
       />
-      {{ weather?.temp }}°C
+      {{ weather.temp }}°C
     </div>
     } }
 
     <!-- Hour hand -->
     <div
-      class="absolute left-1/2 top-1/2 w-1.5 bg-black rounded-md origin-bottom"
-      [ngClass]="size === 'sm' ? 'h-12' : 'h-16'"
+      class="absolute left-1/2 top-1/2 w-1.5 bg-black rounded-md origin-bottom h-10 sm:h-12 lg:h-16 dark:bg-white"
       [style.transform]="
         'translateX(-50%) translateY(-100%) rotate(' + hoursDeg + 'deg)'
       "
@@ -79,8 +69,7 @@
 
     <!-- Minute hand -->
     <div
-      class="absolute left-1/2 top-1/2 w-1 bg-black rounded-md origin-bottom"
-      [ngClass]="size === 'sm' ? 'h-14' : 'h-24'"
+      class="absolute left-1/2 top-1/2 w-1 bg-black rounded-md origin-bottom h-16 sm:h-20 lg:h-24 dark:bg-white"
       [style.transform]="
         'translateX(-50%) translateY(-100%) rotate(' + minutesDeg + 'deg)'
       "
@@ -88,9 +77,8 @@
 
     <!-- Second hand -->
     <div
-      class="absolute left-1/2 top-1/2 w-0.5 bg-black rounded-md"
+      class="absolute left-1/2 top-1/2 w-0.5 bg-black rounded-md h-22 sm:h-28 lg:h-36 dark:bg-white"
       style="transform-origin: 50% 85%"
-      [ngClass]="size === 'sm' ? 'h-22' : 'h-36'"
       [style.transform]="
         'translateX(-50%) translateY(-85%) rotate(' + secondsDeg + 'deg)'
       "

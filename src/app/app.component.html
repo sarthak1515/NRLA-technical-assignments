@@ -7,4 +7,18 @@
 <h1 class="text-center md:text-2xl">
   Technical Assignment: Clock & Weather Widget
 </h1>
-<app-clock></app-clock>
+<div class="flex flex-col justify-center items-center mt-4 gap-4 min-w-fit">
+  <app-clock></app-clock>
+  <div
+    class="flex items-center gap-2 mb-4 px-4 text-sm text-gray-600 dark:text-gray-300"
+  >
+    <span>Light</span>
+    <mat-slide-toggle
+      hideIcon="true"
+      [checked]="isDarkModeEnabled"
+      (change)="toggleDarkMode($event.checked)"
+    >
+    </mat-slide-toggle>
+    <span>Dark</span>
+  </div>
+</div>

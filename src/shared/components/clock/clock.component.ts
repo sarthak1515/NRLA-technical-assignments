@@ -11,8 +11,6 @@ import { Observable } from 'rxjs';
 import { WeatherData, WeatherService } from '../../../services/weather.service';
 import { environment } from '../../../environments/environment';
 
-type ClockSize = 'sm' | 'md';
-
 @Component({
   selector: 'app-clock',
   imports: [CommonModule],
@@ -20,7 +18,6 @@ type ClockSize = 'sm' | 'md';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClockComponent implements OnInit {
-  @Input() size: ClockSize = 'md';
   @Input() className = '';
 
   weather$!: Observable<WeatherData | null>;
@@ -31,7 +28,6 @@ export class ClockComponent implements OnInit {
   hoursDeg = 0;
   minutesDeg = 0;
   secondsDeg = 0;
-  defaultclockSize = 384;
 
   apiKey = environment.weatherApiKey;
 

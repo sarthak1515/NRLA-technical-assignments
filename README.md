@@ -33,12 +33,8 @@ This Angular application displays a functional analogue clock with integrated cu
 
 ### Enhancements / Future Improvements
 
-1- Enable dark mode support.
+1- Add internalization (i18n) for multiple languages.
 
-2- Improve responsiveness for smaller screens.
+2- Complete accessibility improvements.
 
-3- Add internalization (i18n) for multiple languages.
-
-4- Complete accessibility improvements.
-
-5- GitHub Actions (GHA) for CI/CD.
+3- GitHub Actions (GHA) for CI/CD.
