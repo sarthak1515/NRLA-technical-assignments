@@ -8,7 +8,10 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { WeatherData, WeatherService } from '../../../services/weather.service';
+import {
+  WeatherResult,
+  OpenWeatherService,
+} from '../../services/open-weather.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -20,7 +23,7 @@ import { environment } from '../../../environments/environment';
 export class ClockComponent implements OnInit {
   @Input() className = '';
 
-  weather$!: Observable<WeatherData | null>;
+  weather$!: Observable<WeatherResult | null>;
   dateText!: string;
   hourTicks = Array.from({ length: 12 }, (_, i) => i);
   minuteTicks = Array.from({ length: 60 }, (_, i) => i);
@@ -28,13 +31,16 @@ export class ClockComponent implements OnInit {
   hoursDeg = 0;
   minutesDeg = 0;
   secondsDeg = 0;
+  pollingIntervalMs = 10 * 60 * 1000; // 10 minutes
+  errorMessage =
+    'Unable to fetch weather data. Retrying automatically in 10 minutes.';
 
   apiKey = environment.weatherApiKey;
 
   constructor(
     private ngZone: NgZone,
     private cd: ChangeDetectorRef,
-    private weatherService: WeatherService
+    private openWeatherService: OpenWeatherService
   ) {}
 
   ngOnInit() {
@@ -74,10 +80,11 @@ export class ClockComponent implements OnInit {
 
     navigator.geolocation.getCurrentPosition((pos) => {
       const { latitude, longitude } = pos.coords;
-      this.weather$ = this.weatherService.getWeatherByCoords(
+      this.weather$ = this.openWeatherService.getWeatherByCoords(
         latitude,
         longitude,
-        this.apiKey
+        this.apiKey,
+        this.pollingIntervalMs
       );
     });
   }

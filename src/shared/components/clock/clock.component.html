@@ -1,5 +1,6 @@
 <!--  TODO:  Currently missing accessibility enhancements.-->
 <div [ngClass]="className">
+  @if (weather$ | async; as weather){
   <div
     class="relative rounded-full border-4 border-gray-200 dark:border-white w-[256px] sm:w-80 lg:w-96 aspect-square dark:bg-black"
   >
@@ -44,20 +45,22 @@
       {{ dateText }}
     </div>
 
-    @if (weather$ | async; as weather){ @if (weather?.icon && weather?.temp) {
+    @if (weather?.data?.icon && weather?.data?.temp) {
     <!-- Weather pill -->
     <div
       class="absolute left-1/2 -translate-x-1/2 px-2 py-1 text-xs bottom-14 md:text-sm md:bottom-18 lg:bottom-22.5 lg:text-md rounded-lg border border-gray-300 bg-linear-to-r from-gray-100/80 via-gray-100/60 to-gray-100/80 shadow-sm z-10 flex items-center gap-1"
     >
       <img
-        *ngIf="weather.icon"
-        [src]="'https://openweathermap.org/img/wn/' + weather.icon + '@2x.png'"
+        *ngIf="weather.data?.icon"
+        [src]="
+          'https://openweathermap.org/img/wn/' + weather.data?.icon + '@2x.png'
+        "
         alt="Weather icon"
         class="w-5 h-5 bg-gray-500 rounded-full"
       />
-      {{ weather.temp }}°C
+      {{ weather.data?.temp }}°C
     </div>
-    } }
+    }
 
     <!-- Hour hand -->
     <div
@@ -89,4 +92,10 @@
       class="absolute left-1/2 top-1/2 w-4 h-4 border-4 border-black rounded-full -translate-x-1/2 -translate-y-1/2 bg-white"
     ></div>
   </div>
+  <!-- TODO: Improve error handling by adding retry logic -->
+  @if (weather.error) {
+  <p class="text-red-500 mt-4 text-sm">
+    {{ errorMessage }}
+  </p>
+  } }
 </div>

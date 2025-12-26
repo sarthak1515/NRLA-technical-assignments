@@ -35,6 +35,6 @@ This Angular application displays a functional analogue clock with integrated cu
 
 1- Add internalization (i18n) for multiple languages.
 
-2- Complete accessibility improvements.
+2- Complete accessibility.
 
 3- GitHub Actions (GHA) for CI/CD.
